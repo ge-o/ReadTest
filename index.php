@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +22,16 @@
         }
         .container-narrow > hr {
             margin: 30px 0;
+        }
+        .counter {
+            font-size: 35px;
+            float:right;
+            margin-right:35px;
+        }
+        .timer {
+            font-size: 35px;
+            float:right;
+            margin-right:35px;
         }
 
             /* Main marketing message and sign up button */
@@ -76,51 +85,21 @@
 <div class="container-narrow">
 
     <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#myModal" role="button" data-toggle="modal">Add</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="muted">Read it!</h3>
+        <span class="counter">0</span>
+        <span class="timer">00:00</span>
+        <h3 class="muted">Read it! </h3>
     </div>
-
     <hr>
-
     <div class="jumbotron">
-        <h1 id="read-this">Delfin</h1>
-
-        <a id="change" class="btn btn-large btn-success">Nächster</a>
+        <h1 id="read-this">Los gehts!</h1>
+        <a id="change" class="btn btn-large btn-success">Start</a>
     </div>
-
     <hr>
-<!--
-    <div class="row-fluid marketing">
-        <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-    </div>
-
-    <hr>-->
 
     <div class="footer">
+        <ul class="nav nav-pills pull-right">
+            <li><a href="#myModal" role="button" data-toggle="modal">+</a></li>
+        </ul>
         <p>&copy; Read it! 2013</p>
     </div>
 
@@ -128,27 +107,31 @@
 
 <!-- Modal -->
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Add new Word</h3>
+        <h3 id="myModalLabel">Neuer Eintrag</h3>
     </div>
     <div class="modal-body">
         <div id="modalError" class="alert alert-error hidden"></div>
-        <form>
+        <form method="post">
             <input type="text" name="new-word" id="new-word">
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button class="btn btn-primary" id="add">Add</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">schliessen</button>
+        <button class="btn btn-primary" id="add">hinzufügen</button>
     </div>
+
 </div>
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/conf.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    var counter = 0;
     $(document).ready(function(){
         $('#change').click(function(){
             var sclass = ['old','new','so','zu'];
@@ -161,12 +144,12 @@
                 d.css('font-size',z);
 
                 $.ajax({
-                     url: "http://localhost:8529/api/random",
+                     url: "http://"+host+":8529/api/random",
                      type: "GET",
                      dataType: "json",
                      crossDomain: true,
                      beforeSend: function (xhr) {
-                          xhr.setRequestHeader('Authorization', make_base_auth('user', "pw"));
+                          xhr.setRequestHeader('Authorization', make_base_auth(u, p));
                      },error:function (xhr, ajaxOptions, thrownError){
                         alert(xhr.status + '<>' + thrownError + '<>' + xhr.responseText);
                     }
@@ -175,6 +158,10 @@
                     });
             });
             d.fadeIn('slow');
+            $('#change').html('Nächster');
+            counter++;
+            $('.counter').html(counter);
+            start_timer();
         });
         $('#add').click(function(){
             var word = $('#new-word');
@@ -187,13 +174,13 @@
             else
             {
                 $.ajax({
-                    url: "http://localhost:8529/api/new",
+                    url: "http://"+host+":8529/api/new",
                     type: "POST",
-                    dataRaw:{name:word.val()},
+                    data:'{"name":"'+word.val()+'"}',
                     dataType: "json",
                     crossDomain: true,
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader('Authorization', make_base_auth('user', "pw"));
+                        xhr.setRequestHeader('Authorization', make_base_auth(u, p));
                     },error:function (xhr, ajaxOptions, thrownError){
                         alert(xhr.status + '<>' + thrownError + '<>' + xhr.responseText);
                     }
@@ -209,6 +196,29 @@
         var hash = btoa(tok);
         return "Basic " + hash;
     }
+    var Jetzt = new Date();
+    var Start = Jetzt.getTime();
+    function start_timer(){
+        Jetzt = new Date();
+        Start = Jetzt.getTime();
+        window.setTimeout('starter()', 1000);
+    }
+
+    function starter() {
+        var absSekunden = Math.round(ZeitBerechnen());
+        var relSekunden = absSekunden % 60;
+        var absMinuten = Math.abs(Math.round((absSekunden - 30) / 60));
+        var anzSekunden = "" + ((relSekunden > 9) ? relSekunden : "0" + relSekunden);
+        var anzMinuten = "" + ((absMinuten > 9) ? absMinuten : "0" + absMinuten);
+        $('.timer').html( anzMinuten + ":" + anzSekunden);
+        window.setTimeout("starter()", 1000);
+    }
+
+    function ZeitBerechnen () {
+        var Immernoch = new Date();
+        return ((Immernoch.getTime() - Start) / 1000);
+    }
+
 </script>
 </body>
 </html>
