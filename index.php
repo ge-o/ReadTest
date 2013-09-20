@@ -57,12 +57,6 @@
         .jumbotron h1.zu{
             font-family:Verdana;
         }
-        .jumbotron .btn {
-            font-size: 40px;
-            padding: 24px 44px;
-        }
-
-            /* Supporting marketing content */
         .marketing {
             margin: 60px 0;
         }
@@ -87,15 +81,18 @@
     <div class="masthead">
         <span class="counter">0</span>
         <span class="timer">00:00</span>
-        <h3 class="muted">Read it! </h3>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="index.php">Read it!</a>
+            </li>
+            <li><a href="calculate.php">Calculate it!</a></li>
+        </ul>
     </div>
-    <hr>
     <div class="jumbotron">
         <h1 id="read-this">Los gehts!</h1>
         <a id="change" class="btn btn-large btn-success">Start</a>
     </div>
     <hr>
-
     <div class="footer">
         <ul class="nav nav-pills pull-right">
             <li><a href="#myModal" role="button" data-toggle="modal">+</a></li>
