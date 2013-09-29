@@ -48,10 +48,25 @@
             text-align:center;
             padding: 4px 20px 18px 6px !important;
         }
+        .red
+        {
+            background-color: red !important;
+            color: white !important;
+        }
+        .green
+        {
+            background-color: forestgreen !important;
+            color: white !important;
+        }
+        .orange
+        {
+            background-color: darkorange !important;
+            color: white !important;
+        }
         #erg
         {
             display: inline-block;
-            width:130px !important;
+            width:150px !important;
             text-align:left;
         }
         #second
@@ -94,9 +109,10 @@
     <hr>
 
     <div class="footer">
-        <!--ul class="nav nav-pills pull-right">
-            <li><a href="#myModal" role="button" data-toggle="modal">+</a></li>
-        </ul-->
+        <ul class="nav nav-pills pull-right">
+            <li><label class="radio"><input type="radio" name="mode" id="mode" value="+" checked="checked"> Addition &nbsp;</label></li>
+            <li><label class="radio"><input type="radio" name="mode" id="mode" value="*"> Multiplikation</label></li>
+        </ul>
         <p>&copy; Calculate it! 2013</p>
     </div>
 
@@ -145,9 +161,46 @@
             }
             else if(act == 'next')
             {
-                $('#first').val(make_rnd());
-                $('#second').val(make_rnd());
-                $('#meth').html('+');
+                var first = make_rnd();
+                var second = make_rnd();
+                var meth = $( "input:radio[name=mode]:checked" ).val();
+                $('#first').val(first);
+                $('#second').val(second);
+                if(meth == '+')
+                {
+                    if (first == second)
+                    {
+                        reset_class('red');
+                    }
+                    else if(first ==1 || second == 1 || first ==10 || second ==10 )
+                    {
+                        reset_class('green');
+                    }
+                    else
+                    {
+                        reset_class('');
+                    }
+                }
+                else
+                {
+                    if (first == second)
+                    {
+                        reset_class('red');
+                    }
+                    else if(first ==1 || second == 1 || first ==10 || second ==10 )
+                    {
+                        reset_class('green');
+                    }
+                    else if(first ==2 || second == 2 )
+                    {
+                        reset_class('orange');
+                    }
+                    else
+                    {
+                        reset_class('');
+                    }
+                }
+                $('#meth').html(meth);
                 $('#erg').html('= ?')
                 $('#change').html('lösen');
                 $('#act').val('solution');
@@ -155,6 +208,24 @@
         });
 
     });
+
+    function reset_class(hold)
+    {
+        var colors = ['red','green','orange'];
+        for (var i=0;i<=colors.length;i++)
+        {
+            if(colors[i] == hold)
+            {
+                $('#first').addClass(hold);
+                $('#second').addClass(hold);
+            }
+            else
+            {
+                $('#first').removeClass(colors[i]);
+                $('#second').removeClass(colors[i]);
+            }
+        }
+    }
     function make_base_auth(user, password) {
         var tok = user + ':' + password;
         var hash = btoa(tok);
@@ -162,7 +233,7 @@
     }
     function make_rnd()
     {
-        return 1 + Math.floor(Math.random() * (10-1));
+        return 1 + Math.floor(Math.random() * (11-1));
     }
 </script>
 </body>

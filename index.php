@@ -183,6 +183,7 @@
                     }
                 }).done(function(result) {
                         console.log(result);
+                        +word.val('');
                         $('#myModal').modal('hide');
                     });
             }
