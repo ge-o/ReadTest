@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Anna &middot; ReadIt</title>
+    <title>Anna &middot; Lesen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -42,7 +42,7 @@
         }
         .jumbotron h1 {
             font-size: 72px;
-            height:300px;
+            height:250px;
             line-height: 1;
         }
         .jumbotron h1.old {
@@ -83,9 +83,9 @@
         <span class="timer">00:00</span>
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="index.php">Read it!</a>
+                <a href="index.php">Lies!</a>
             </li>
-            <li><a href="calculate.php">Calculate it!</a></li>
+            <li><a href="calculate.php">Rechne!</a></li>
         </ul>
     </div>
     <div class="jumbotron">
@@ -97,7 +97,7 @@
         <ul class="nav nav-pills pull-right">
             <li><a href="#myModal" role="button" data-toggle="modal">+</a></li>
         </ul>
-        <p>&copy; Read it! 2013</p>
+        <p>&copy; <a href="https://github.com/ge-o" target="_blank">ge-o</a> 2013</p>
     </div>
 
 </div> <!-- /container -->

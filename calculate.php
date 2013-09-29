@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Anna &middot; CalculateIt</title>
+    <title>Anna &middot; Rechnen</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -92,9 +92,9 @@
         <span class="counter">0</span>
         <ul class="nav nav-tabs">
             <li >
-                <a href="index.php">Read it!</a>
+                <a href="index.php">Lies!</a>
             </li>
-            <li class="active"><a href="calculate.php">Calculate it!</a></li>
+            <li class="active"><a href="calculate.php">Rechne!</a></li>
         </ul>
     </div>
     <div class="jumbotron">
@@ -113,7 +113,7 @@
             <li><label class="radio"><input type="radio" name="mode" id="mode" value="+" checked="checked"> Addition &nbsp;</label></li>
             <li><label class="radio"><input type="radio" name="mode" id="mode" value="*"> Multiplikation</label></li>
         </ul>
-        <p>&copy; Calculate it! 2013</p>
+        <p>&copy; <a href="https://github.com/ge-o" target="_blank">ge-o</a> 2013</p>
     </div>
 
 </div> <!-- /container -->
