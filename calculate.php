@@ -111,6 +111,7 @@
     <div class="footer">
         <ul class="nav nav-pills pull-right">
             <li><label class="radio"><input type="radio" name="mode" id="mode" value="+" checked="checked"> Addition &nbsp;</label></li>
+            <li><label class="radio"><input type="radio" name="mode" id="mode" value="-"> Subtraktion &nbsp;</label></li>
             <li><label class="radio"><input type="radio" name="mode" id="mode" value="*"> Multiplikation</label></li>
         </ul>
         <p>&copy; <a href="https://github.com/ge-o" target="_blank">ge-o</a> 2013</p>
@@ -164,8 +165,6 @@
                 var first = make_rnd();
                 var second = make_rnd();
                 var meth = $( "input:radio[name=mode]:checked" ).val();
-                $('#first').val(first);
-                $('#second').val(second);
                 if(meth == '+')
                 {
                     if (first == second)
@@ -179,6 +178,17 @@
                     else
                     {
                         reset_class('');
+                    }
+                }
+                else if(meth == '-')
+                {
+                    first = make_rnd(100);
+                    second = make_rnd(100);
+                    if (first < second)
+                    {
+                        var alt_first = first
+                        first = second;
+                        second = alt_first;
                     }
                 }
                 else
@@ -200,6 +210,8 @@
                         reset_class('');
                     }
                 }
+                $('#first').val(first);
+                $('#second').val(second);
                 $('#meth').html(meth);
                 $('#erg').html('= ?')
                 $('#change').html('lösen');
@@ -231,9 +243,11 @@
         var hash = btoa(tok);
         return "Basic " + hash;
     }
-    function make_rnd()
+    function make_rnd(raum)
     {
-        return 1 + Math.floor(Math.random() * (11-1));
+        if(!raum)
+            raum = 100;
+        return 1 + Math.floor(Math.random() * (raum));
     }
 </script>
 </body>
